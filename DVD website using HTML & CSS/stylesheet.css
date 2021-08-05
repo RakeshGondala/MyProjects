@@ -1,0 +1,65 @@
+body{
+	background:url(sky.jpg);
+	
+}
+h1{
+	
+	border:black 2px solid;
+	background-color:aqua;
+	text-align:center;
+	font-size:35px;
+}
+h2.h2{
+	
+	border:black 2px solid;
+	background-color:aqua;
+	text-align:center;
+	font-size:30px;
+}
+h3.h3{
+	
+	border:black 2px solid;
+	background-color:aqua;
+	text-align:center;
+	font-size:30px;
+}
+p.p1{
+	color:white;
+	font-weight:bolder;
+	border:black 2px solid;
+	padding:20px;
+    background-color:grey;
+	line-height:1.5em;
+	
+	
+}
+p.p2{
+	color:white;
+	font-weight:bolder;
+	border:black 2px solid;
+	padding:20px;
+	background-color:grey;
+	line-height:1.5em;
+}
+
+
+p.p3{
+	color:white;
+	font-weight:bolder;
+	border:black 2px solid;
+	padding:20px;
+	background-color:grey;
+	line-height:1.5em;
+}
+img.img1{
+border:red 2px dashed;
+float:left;
+}
+img.img2{
+border:red 2px dashed;
+float:left;
+}
+img.img3{
+border:red 2px dashed;
+float:left;
+}

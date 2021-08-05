@@ -1,0 +1,161 @@
+body{
+margin: 0;
+padding: 0;
+font-family: sans-serif;
+background: #34495e;
+}
+.box{
+width: 300px;
+padding: 40px;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%,-50%);
+background: #191919;
+text-align: center;
+}
+.box h1{
+color:white;
+text-transform:uppercase;
+font-weight;500;
+}
+.box h2{
+color:yellow;
+text-transform:uppercase;
+font-weight;250;
+}
+
+.box input[type="text"]{
+border:0;
+background: none;
+display:block;
+margin-top:20px;
+text-align: center;
+border:2px solid #3498db;
+padding:14px 10px;
+width:300px;
+outline:none;
+color:white;
+border-radius:24px;
+transition: 0.25s;
+}
+.box input[type="Phone"]{
+border:0;
+background: none;
+display:block;
+margin-top:20px;
+text-align: center;
+border:2px solid #3498db;
+padding:14px 10px;
+width:300px;
+outline:none;
+color:white;
+border-radius:24px;
+transition: 0.25s;
+}
+.box input[type="password"]{
+border:0;
+background: none;
+display:block;
+margin-top:20px;
+text-align: center;
+border:2px solid #3498db;
+padding:14px 10px;
+width:300px;
+outline:none;
+color:white;
+border-radius:24px;
+transition: 0.25s;
+}
+.box input[type="submit"]{
+border:0;
+background:blue;
+display:block;
+margin-top:20px;
+text-align: center;
+border:2px solid #3498db;
+padding:14px 10px;
+width:300px;
+outline:none;
+color:white;
+border-radius:24px;
+transition: 0.25s;
+cursor:pointer;
+}
+.box input[type="submit"]:hover{
+background:#2ecc71;
+}
+.box input[type="text"]:hover{
+background:Skyblue;
+}
+.box input[type="password"]:hover{
+background:skyblue;
+}
+.box input[type="Phone"]:hover{
+background:skyblue;
+}
+.check-box{
+margin-top:20px;
+}	
+span:hover{
+color:yellow;
+}
+span{
+color:white;
+}
+.Button{
+  background:none;
+  border:0;
+  color:white;
+ margin-top:20px;
+ padding-top:670px;
+ padding-left:620px;
+
+}	
+.button{
+	background:skyblue;
+	border-radius:5px;
+	border-color:black;
+	color:black;
+}
+.button:hover{
+background:#2ecc71;
+color:blue;
+border-color:black;
+}
+.Button1{
+ background:none;
+ border:0;
+ color:white;
+ margin-top:20px;
+ padding-top:670px;
+ padding-left:590px;
+}
+.Button1:hover{
+	color:yellow;
+}
+.link{
+margin-top:30px;
+}
+.Head{
+	color:#2ecc71;
+}
+.head{
+	color:#2ecc71;
+}
+.para{
+	color:white;
+}
+.login{
+	background:skyblue;
+	border:2px,solid,black;
+	border-radius:20px;
+	color:black;
+}
+.login:hover{
+	background:#2ecc71;
+	border:2px,solid,black;
+	border-radius:20px;
+	color:black;
+}
+	

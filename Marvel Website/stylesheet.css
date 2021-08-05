@@ -1,0 +1,108 @@
+body{
+	background:linear-gradient(red,orange,yellow);
+}
+h1{
+    color:darkgreen;
+	background-color:lightgrey;
+	border:green 2px solid;
+	text-align:center;
+    font-size:40px;
+}
+h2.h2{
+    color:darkgreen;
+	background-color:lightgrey;
+	border:green 2px solid;
+	text-align:center;
+	font-size:40px;
+}
+p.p1{
+	color:blue;
+	font-size:20px;
+	font-family:verdana;
+	line-height:1.5em;
+	background-color:lightgrey;
+	padding:20px;
+	border:green 2px solid;
+	margin-top: 0px;
+	
+}
+p.p2{
+	color:blue;
+	font-size:20px;
+	font-family:verdana;
+	line-height:1.5em;
+	background-color:lightgrey;
+	padding:20px;
+	border:green 2px solid;
+	margin-top: 0px;
+	font-weight:lighter;
+	
+}
+img.m1{
+	float:left;
+	border:orange 3px dashed;
+}	
+img.m2{
+	float:left;
+	border:orange 3px dashed;
+}
+#theForm{
+
+color:white;
+display: table;
+padding:15px;
+background:linear-gradient(45deg, red,blue);
+border-color:black;
+border-style:solid;
+font-weight:bolder;
+color:white;
+}
+
+
+.row{
+display: table-row;
+}
+
+.row label{
+dislplay :table-cell;
+padding: 2px;
+text-align:right;
+}
+
+
+.row input{
+display: table-cell;
+padding:2px;
+}
+#nav {
+	background-color:navy;
+	height:35px;
+	font-size:25px;
+	font-weight:bold;
+	font:Tahoma;
+}
+
+#nav ul {
+	padding: 0;
+	margin: 0;
+	list-style-type:none;
+	text-align: center;
+}
+
+#nav li{
+	display:inline;
+	padding:15px;
+	vertical-align:middle;
+}
+#nav a{
+	text-decoration:none;
+	padding:8px 8px 8px 8px;
+	color:white;
+vertical-align:middle
+}
+#nav a:hover{
+	color:black;
+	background-color:white;
+}
+
+
