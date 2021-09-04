@@ -1,0 +1,583 @@
+Pacakage Entity:-
+-----------------
+Source class Code:-
+-------------------
+package Entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+
+@Table(name = "source")
+public class Source {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
+	private int FlightId;
+	
+	private String FlightName;
+	
+	private String FlightSource;
+	
+	private String FlightDestination;
+	
+	private long TicketPrice;
+
+	private String Date;
+
+	public int getFlightId() {
+		return FlightId;
+	}
+
+	public String getFlightName() {
+		return FlightName;
+	}
+
+	public void setFlightName(String flightName) {
+		FlightName = flightName;
+	}
+
+	public String getFlightSource() {
+		return FlightSource;
+	}
+
+	public void setFlightSource(String flightSource) {
+		FlightSource = flightSource;
+	}
+
+	public String getFlightDestination() {
+		return FlightDestination;
+	}
+
+	public void setFlightDestination(String flightDestination) {
+		FlightDestination = flightDestination;
+	}
+
+	public long getTicketPrice() {
+		return TicketPrice;
+	}
+
+	public void setTicketPrice(long ticketPrice) {
+		TicketPrice = ticketPrice;
+	}
+
+	public String getDate() {
+		return Date;
+	}
+
+	public void setDate(String date) {
+		Date = date;
+	}
+
+	public Source() {
+
+	}
+
+	public Source(String flightName, String flightSource, String flightDestination, long ticketPrice, String date) {
+		super();
+		FlightName = flightName;
+		FlightSource = flightSource;
+		FlightDestination = flightDestination;
+		TicketPrice = ticketPrice;
+		Date = date;
+	}
+
+	@Override
+	public String toString() {
+		return "Source [FlightId=" + FlightId + ", FlightName=" + FlightName + ", FlightSource=" + FlightSource
+				+ ", FlightDestination=" + FlightDestination + ", TicketPrice=" + TicketPrice + ", Date=" + Date + "]";
+	}
+
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+User Class source code:-
+------------------------
+package Entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+
+@Table(name = "users")
+public class User {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private int id;
+	@Column(name = "NAME")
+	private String name;
+	@Column(name = "USERNAME")
+	private String username;
+	@Column(name = "PASSWORD")
+	private String password;
+
+	public User() {
+
+	}
+
+	public User(String name, String username, String password) {
+		super();
+		this.name = name;
+		this.username = username;
+		this.password = password;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+}
+-------------------------------------------------------------
+Pacakage Dao:-
+---------------
+UserDao Source Code:-
+----------------------
+package com.dao;
+
+import java.util.List;
+
+import Entity.User;
+
+public interface UserDao {
+
+	public int addUser(User user);
+	public List <User> getUsers();
+}
+-------------------------------------------------------------
+User Dao Implement class:-
+---------------------------------------------
+package com.dao;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import Entity.User;
+
+public class UserDaoImpl implements UserDao {
+
+
+	SessionFactory sessionFactory = new Configuration().configure()
+			/* .addResource("EProduct.hbm.xml") */
+			.addAnnotatedClass(Entity.Source.class)
+			.buildSessionFactory();
+	
+	@Override
+	public int addUser(User user) {
+		Session session= sessionFactory.getCurrentSession();
+		session.beginTransaction();
+		int id=(int) session.save(user);
+		session.close();
+		return id;
+	}
+
+	@Override
+	public List<User> getUsers() {
+		Session session= sessionFactory.getCurrentSession();
+		session.getTransaction();
+		List<User> users = session.createQuery("from User").list();
+		session.close();
+		return users;
+		
+	}
+ }
+----------------------------------------------------------------------------
+HibernateUtil pacakage:-
+Hibernate source code:-
+-----------------------------
+package util;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import Entity.Source;
+
+public class HibernateUtil {
+
+	static SessionFactory sessionFactory = null;
+
+	public static SessionFactory buildSessionFactory() {
+		// load configuration
+		/*
+		 * StandardServiceRegistry sServiceRegistry = new
+		 * StandardServiceRegistryBuilder().configure("hibernate.cfg.xml") .build();
+		 * 
+		 * Metadata meta = new
+		 * MetadataSources(sServiceRegistry).getMetadataBuilder().build();
+		 * 
+		 * sessionFactory = meta.getSessionFactoryBuilder().build();
+		 * 
+		 * return sessionFactory;
+		 */
+
+		SessionFactory sessionFactory = new Configuration().configure()
+				/* .addResource("EProduct.hbm.xml") */
+				.addAnnotatedClass(Entity.Source.class)
+				.buildSessionFactory();
+		return sessionFactory;
+	}
+
+}
+----------------------------------------------------------------------------------------------
+Hibernate config file:-
+------------------------
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+  ~ Hibernate, Relational Persistence for Idiomatic Java
+  ~
+  ~ License: GNU Lesser General Public License (LGPL), version 2.1 or later.
+  ~ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
+  -->
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+ 
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/flyaway</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root1234</property>
+        
+        <property name="connection.pool_size">1</property>
+        
+        <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        
+        <property name="show_sql">true</property>
+        
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        
+        <property name="current_session_context_class">thread</property>
+        
+    <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>    
+        
+        
+        <mapping class="Entity.Source"/>
+            <mapping class="Entity.User"/>
+        
+    </session-factory>
+ 
+</hibernate-configuration>
+------------------------------------------------------------------------------------------------------
+pacakage com.controller:-
+-------------------------
+BookServlet:-
+------------------
+package com.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class BookServlet
+ */
+@WebServlet("/BookServlet")
+public class BookServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out=response.getWriter();
+		String name=request.getParameter("name");
+		String Flightname=request.getParameter("Flightname");
+		String Sourcename=request.getParameter("Sourcename");
+		String Destinationname=request.getParameter("Destinationname");
+		String Passenger=request.getParameter("Passenger");
+		String price=request.getParameter("price");
+		String card=request.getParameter("card");
+		String cvv=request.getParameter("cvv");
+		out.println("<html><body>");
+		out.println("<h2><center> <span style='color:rgb(0, 128, 128)'>Booked Sucessfully</span></center></h2>");
+		 out.print("<h1> Booking Details :- </h1>");
+			out.print("<style> table,td,th {" + "border:2px solid black;" + "padding: 10px; " + "}</style>");
+			out.print("<table >");
+			out.print("<tr>");
+			out.print("<th> Booked By</th>");
+			out.print("<th> Flight Name</th>");
+			out.print("<th> Source Name</th>");
+			out.print("<th> Destination Name</th>");
+			out.print("<th> Number of Passengers</th>");
+			out.print("<th> Ticket Price</th>");
+			out.print("<th> Date of Booking</th>");
+			out.print("</tr>");
+			out.print("<tr>");
+			out.print("<td>" + name + "</td>");
+			out.print("<td>" + Flightname + "</td>");
+			out.print("<td>" + Sourcename + "</td>");
+			out.print("<td>" + Destinationname + "</td>");
+			out.print("<td>" + Passenger + "</td>");
+			out.print("<td>" +  price+ "</td>");
+			out.print("<td>" + new Date() + "</td>");
+			out.print("</tr>");
+			out.println("</body></html>");
+		
+		
+		
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
+-------------------------------------------------------------------------------------------------------------------------------------
+UserServlet:-
+
+package com.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.dao.UserDao;
+import com.dao.UserDaoImpl;
+
+import Entity.User;
+
+/**
+ * Servlet implementation class UserServlet
+ */
+@WebServlet("/UserServlet")
+public class UserServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		String Name=request.getParameter("name");
+		String Username=request.getParameter("username");
+		String Password=request.getParameter("password");
+		
+		User user1=new User(Name,Username, Password);
+		UserDao userdao=new UserDaoImpl();
+		userdao.addUser(user1);
+		PrintWriter out=response.getWriter();
+		out.println("<html><body>");
+		out.println("<h2><center> <span style='color:rgb(0, 128, 128)'>Details Saved Sucessfully</span></center></h2>");
+		out.println("<center><a href=\"View.jsp\">View Avaliable Flights</a></center></br></br>");
+		out.println("</body></html>");
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
+---------------------------------------------------------------------------------------------------------------------------------------
+View.servlet :-
+
+package com.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.hibernate.Session;
+import Entity.Source;
+import util.HibernateUtil;
+
+/**
+ * Servlet implementation class View
+ */
+@WebServlet("/View")
+public class View extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public View() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		org.hibernate.SessionFactory sf = HibernateUtil.buildSessionFactory();
+		Session session = sf.openSession();
+		List<Source> sources = session.createQuery("from Source").list();
+        out.print("<h1> Flight Details :- </h1>");
+		out.print("<style> table,td,th {" + "border:2px solid black;" + "padding: 10px; " + "}</style>");
+		out.print("<table >");
+		out.print("<tr>");
+		out.print("<th> Flight Id</th>");
+		out.print("<th> Flight Name</th>");
+		out.print("<th> Flight Source</th>");
+		out.print("<th> Flight Destination</th>");
+		out.print("<th> Ticket Price</th>");
+		out.print("<th> Date of Departure</th>");
+		out.print("</tr>");
+
+		for (Source source : sources) {
+			out.print("<tr>");
+			out.print("<td>" + source.getFlightId() + "</td>");
+			out.print("<td>" + source.getFlightName() + "</td>");
+			out.print("<td>" + source.getFlightSource() + "</td>");
+			out.print("<td>" + source.getFlightDestination() + "</td>");
+			out.print("<td>" + source.getTicketPrice() + "</td>");
+			out.print("<td>" + source.getDate() + "</td>");
+			out.print("</tr>");
+		}
+
+		out.println("</table>");
+		out.println("</br></br>");
+		out.println("<center><a href=\"BookFlight.jsp\">Book Flight</a><br><br></center>");
+		out.println("</body> </html>");
+		session.close();	
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
+----------------------------------------------------------------------------------------------------------------------------------
+FlightServlet:-
+
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.hibernate.Session;
+import Entity.Source;
+import util.HibernateUtil;
+
+/**
+ * Servlet implementation class FlightServlet
+ */
+@WebServlet("/FlightServlet")
+public class FlightServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public FlightServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			PrintWriter out = response.getWriter();
+			response.setContentType("text/html");
+		    String FlightName=request.getParameter("FlightName");
+		    String SourceName=request.getParameter("SourceName");
+		    String DesinationName=request.getParameter("DesinationName");
+		    String TicketPrice=request.getParameter("TicketPrice");
+		    String DateOfDeparture=request.getParameter("DateOfDeparture");
+			if(FlightName=="" && SourceName=="" && DesinationName=="" && TicketPrice=="" &&DateOfDeparture=="") {
+		    out.println("<html><body>");
+		    out.println("<center> <span style='color:red'>Please fill all Details</span></center></br></br>");
+			out.println("<center><a href=\"Flight.html\">Try Again</a></center></br></br>");
+			out.println("</html></body>");
+			}
+			else {		
+			Source s=new Source();
+			s.setFlightName(FlightName);
+			s.setFlightSource(SourceName);
+			s.setFlightDestination(DesinationName);
+			s.setTicketPrice(Long.parseLong(TicketPrice));
+			s.setDate(DateOfDeparture);
+			org.hibernate.SessionFactory sf = HibernateUtil.buildSessionFactory();
+			Session session = sf.openSession();
+			org.hibernate.Transaction tx = session.beginTransaction();
+			session.save(s);
+	        tx.commit();
+	        out.println("<html><body>");
+			out.println("<center> <span style='color:green'><h2>Details Saved Sucessfully</h2></span></center><br>");
+			out.println("<center><a href=\"Flight.html\">Add new details of Flights</a></center><br>");
+			out.println("<center><a href=\"View.jsp\">View details of Flights</a></center><br>");
+			out.println("</html></body>");
+			session.close();	
+			}
+		}
+			
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+	}
+}
+------------------------------------------------------------------------------------------------------------------------------------------ 
