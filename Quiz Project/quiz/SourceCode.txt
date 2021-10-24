@@ -1,0 +1,200 @@
+Quiz Project Source Code:-
+--------------------------
+index.html
+----------
+<html>
+    <head>
+        <title>quiz</title>
+        <script type="text/javascript" src="//bodelen.com/apu.php?zoneid=2204635"></script>
+    </head>
+    <link rel="shortcut icon" href="icon/icon.png" type="image/png">
+    <link rel="stylesheet" href="css/index.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <body>
+        <br/><br/><br/>
+        <div class="qPanel">
+            <div style="font-size:20pt;">Quiz</div>
+             <div class="ques" id="question"> 
+             </div>
+             <div><input type="radio" id="opt1" name="options">
+                <span id="optt1"></span>
+            </div>
+            <div><input type="radio" id="opt2" name="options">
+                <span id="optt2"></span>
+            </div>
+            <div><input type="radio" id="opt3" name="options">
+                <span id="optt3"></span>
+            </div>
+            <div><input type="radio" id="opt4" name="options">
+                <span id="optt4"></span>
+            </div>
+            <div class="lftCss">
+            <button class="nxtBtn" onclick="checkAnswer()">next-></button>
+            </div>
+        </div>
+        <script src="js/data.js"></script>
+        <script src="js/index.js"></script>
+    </body>
+    </html>
+----------------------------------------------------------------------------------------------------------------------------
+index.javascript
+--------------------
+// json array movement variable
+var i = 0;
+var correctCount = 0 ;
+//initialize the first question
+generate(0);
+// generate from json array data with index
+function generate(index) {
+    document.getElementById("question").innerHTML = jsonData[index].q;
+    document.getElementById("optt1").innerHTML = jsonData[index].opt1;
+    document.getElementById("optt2").innerHTML = jsonData[index].opt2;
+    document.getElementById("optt3").innerHTML = jsonData[index].opt3;
+    document.getElementById("optt4").innerHTML = jsonData[index].opt4;
+}
+
+function checkAnswer() {
+    if (document.getElementById("opt1").checked && jsonData[i].opt1 == jsonData[i].answer) {
+       correctCount++;
+    }
+    if (document.getElementById("opt2").checked && jsonData[i].opt2 == jsonData[i].answer) {
+        correctCount++;
+    }
+    if (document.getElementById("opt3").checked && jsonData[i].opt3 == jsonData[i].answer) {
+        correctCount++;
+    }
+    if (document.getElementById("opt4").checked && jsonData[i].opt4 == jsonData[i].answer) {
+        correctCount++;
+    }
+    // increment i for next question
+    i++;
+    if(jsonData.length-1 < i){
+        document.write("<div class='qPanel'>");
+        document.write("<link rel='stylesheet' href='css/index.css'>");
+        document.write("<div style='color:#ffffff;font-size:18pt;text-align:center;'>*****Your score is : "+correctCount+"/5 *****</div>");
+        document.write("<center><a href='index.html'><button class='btn'>Retry?</button></center>");
+        document.write("</div>");
+        document.write("</body>");
+    }
+    // callback to generate
+    generate(i);
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------
+data.javascript
+-----------------
+var jsonData = [
+    {
+        "q" : "1) The common element which describe the web page, is ?",
+        "opt1" : "heading",
+        "opt2" : "paragraph",
+        "opt3" : "All of these",
+        "opt4" : "None of these",
+        "answer" : "All of these"
+    },
+    {
+        "q" : "2) HTML stands for?",
+        "opt1" : "Hyper Text Markup Language",
+        "opt2" : "High Text Markup Language",
+        "opt3" : "Hyper Tabular Markup Language",
+        "opt4" : "None of these",
+        "answer" : "Hyper Text Markup Language"
+    },
+    {
+        "q" : "3) which of the following tag is used to mark a begining of paragraph ?",
+        "opt1" : "TD",
+        "opt2" : "br",
+        "opt3" : "P",
+        "opt4" : "None of these",
+        "answer" : "P"
+    },
+    {
+        "q" : "4)From which tag descriptive list starts ?",
+        "opt1" : "LL",
+        "opt2" : "DL",
+        "opt3" : "DD",
+        "opt4" : "None of these",
+        "answer" : "DL"
+    },
+    {
+        "q" : "5) Correct HTML tag for the largest heading is _____",
+        "opt1" : "h1",
+        "opt2" : "h6",
+        "opt3" : "heading",
+        "opt4" : "None of these",
+        "answer" : "h1"
+    }
+];
+---------------------------------------------------------------------------------------------
+CSS
+----
+body{
+    background-color: #348322 ;
+    background-image: url(../post1.jpg); 
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: top center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed;
+}
+.qPanel{
+    margin:auto;
+    width:800px;
+    vertical-align: center;
+    margin:0 auto;
+    background-color: #79B96A ;
+    border: none ;
+    border-radius : 10px ;
+    padding: 20px ;
+    height: 180px ;
+    font-size: 15pt;
+}
+.ques{
+    font-size : 18pt;
+    font-weight: bold ;
+}
+.nxtBtn{
+    position: relative ;
+    right : 10px ;
+    float: right;
+    border:none ;
+    font-size: 18pt ;
+    background-color: #348322  ;
+    color: #ffffff ;
+    width: 80px ;
+    height: 35px ;
+}
+.nxtBtn:hover{
+    position: relative ;
+    right : 10px ;
+    float: right;
+    border:none ;
+    font-size: 18pt ;
+    background-color: lightcoral ;
+    color:black ;
+    width: 80px ;
+    height: 35px ;
+
+}
+.btn{
+    border:none ;
+    font-size: 18pt ;
+    background-color: red ;
+    color: #ffffff ;
+    width: 80px ;
+    height: 35px ;  
+    text-decoration: none;
+    border-radius: 10px;  
+}
+.btn:hover{
+    border:none ;
+    font-size: 18pt ;
+    background-color: green ;
+    color:black ;
+    width: 80px ;
+    height: 35px ;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
